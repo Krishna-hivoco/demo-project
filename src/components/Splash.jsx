@@ -58,6 +58,8 @@ function Splash() {
     try {
       const stream = await navigator.mediaDevices.getUserMedia({
         video: { facingMode: { exact: "environment" } }, // Forces the use of the back camera
+        width: { ideal: 1920 }, // 1920px width (Full HD)
+        height: { ideal: 1080 },
       });
       // const stream = await navigator.mediaDevices.getUserMedia({ video: true });
       videoRef.current.srcObject = stream;
