@@ -11,13 +11,13 @@ function Splash() {
   const [isSecond, setIsSecond] = useState(false);
   const [stack, setStack] = useState(1);
   const [user, setUser] = useState({
-    name: "",
-    phone: "",
+    name: "Pritesh",
+    phone: 8285022022,
   });
   const [store, setStore] = useState({
-    name: "",
-    location: "",
-    city: "",
+    name: "Fortune Store",
+    location: "No.28, Tannery Road, Bangalore - 560005",
+    city: "Bangalore",
   });
   const navigate = useNavigate();
 
@@ -195,6 +195,7 @@ function Splash() {
                   {" "}
                   <div className=" flex-1 gap-4 flex flex-col justify-center items-center   ">
                     <InputField
+                      value={user.name}
                       type="text"
                       onChange={(e) =>
                         setUser({ ...user, name: e.target.value })
@@ -202,6 +203,7 @@ function Splash() {
                       placeholder={"Enter name"}
                     />
                     <InputField
+                      value={user.phone}
                       type="tel"
                       onChange={(e) =>
                         setUser({ ...user, phone: e.target.value })
@@ -241,9 +243,15 @@ function Splash() {
               {stack === 3 && (
                 <>
                   <div className=" flex-1 gap-4 flex flex-col justify-center items-center   ">
-                    <InputField placeholder={"Enter store name"} />
-                    <InputField placeholder={"Locality"} />
-                    <InputField placeholder={"City"} />
+                    <InputField
+                      value={store.name}
+                      placeholder={"Enter store name"}
+                    />
+                    <InputField
+                      value={store.location}
+                      placeholder={"Locality"}
+                    />
+                    <InputField value={store.city} placeholder={"City"} />
                   </div>
 
                   <Button

@@ -34,19 +34,19 @@ function Congratulation() {
             <strong className="font-bold text-2xl">Congratulations</strong>
             <p className="font-normal text-base text-center">
               Your photo looks great! You have arranged the biscuits perfectly.
-              You’re rewarded '100' points. Keep it up!
+              You’re rewarded 90 points. Keep it up!
             </p>
             <div className="flex justify-center items-center bg-[#FFF7CD] p-1">
               <img src="/gold.svg" alt="Gold star" />
               <span className="text-[#F49D1D] text-base font-semibold">
-                + {point ||90}
+                + {point || 90}
               </span>
             </div>
           </div>
         </div>
 
         <Button
-          onClick={() => navigate("/leaderboard",{state:{point:point}})}
+          onClick={() => navigate("/leaderboard", { state: { point: point } })}
           title="View Leaderboard"
         />
       </div>
