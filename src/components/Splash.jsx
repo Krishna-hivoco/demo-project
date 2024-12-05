@@ -56,10 +56,10 @@ function Splash() {
   // Open the camera and stream to the video element
   const startCamera = async () => {
     try {
-      // const stream = await navigator.mediaDevices.getUserMedia({
-      //   video: { facingMode: { exact: "environment" } }, // Forces the use of the back camera
-      // });
-      const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+      const stream = await navigator.mediaDevices.getUserMedia({
+        video: { facingMode: { exact: "environment" } }, // Forces the use of the back camera
+      });
+      // const stream = await navigator.mediaDevices.getUserMedia({ video: true });
       videoRef.current.srcObject = stream;
       videoRef.current.play();
       setStreaming(true);
