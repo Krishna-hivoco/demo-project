@@ -90,14 +90,13 @@ function Splash() {
     try {
       setLoading(true);
       const response = await axios.post(
-        "https://sampann-open.thefirstimpression.ai/process",
+        "https://whirlpool-hindi.interactivedemos.io/process",
         {
           image: imageDataUrl,
           right_upload: false,
         }
       );
 
-      console.log("first", response);
       setLoading(false);
       navigate("/Feadback", {
         state: {
@@ -169,6 +168,7 @@ function Splash() {
           <div className="h-full">
             <div className="flex flex-col h-full">
               <img
+                onClick={() => navigate("/")}
                 className={`w-64 h-28 mx-auto transition-all delay-300 duration-700 ${
                   stack == 0 ? "translate-y-56 " : ""
                 } `}
