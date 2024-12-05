@@ -90,7 +90,7 @@ function Splash() {
     try {
       setLoading(true);
       const response = await axios.post(
-        "https://scope-hindi.interactivedemos.io/process",
+        "https://sangya.thefirstimpression.ai/process",
         {
           image: imageDataUrl,
           right_upload: false,
