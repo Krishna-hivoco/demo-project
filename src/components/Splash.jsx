@@ -90,7 +90,7 @@ function Splash() {
     try {
       setLoading(true);
       const response = await axios.post(
-        "https://whirlpool-hindi.interactivedemos.io/process",
+        "https://haier.interactivedemos.io/process",
         {
           image: imageDataUrl,
           right_upload: false,
