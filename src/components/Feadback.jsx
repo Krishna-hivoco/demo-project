@@ -8,7 +8,7 @@ function Feadback() {
   const location = useLocation();
   const response = location.state?.response;
   const actualimage = location.state?.actualimage;
-  const setStack = location.state?.setStack;
+
   const navigate = useNavigate();
   const goBack = (path) => {
     navigate(path);
@@ -69,7 +69,7 @@ function Feadback() {
           ) : (
             <Button
               onClick={() => {
-                navigate("/");
+                navigate("/", { state: { fromFeedback: true } });
               }}
               title="Upload New Photo"
             />

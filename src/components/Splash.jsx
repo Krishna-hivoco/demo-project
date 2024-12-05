@@ -7,10 +7,9 @@ import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 function Splash() {
-  const [stack, setStack] = useState(0);
-  // const [responseData, setResponseData] = useState();
-  const inputRef = useRef(null);
-  const [base64Image, setBase64Image] = useState("");
+  const location = useLocation();
+  const [isSecond, setIsSecond] = useState(false);
+  const [stack, setStack] = useState(1);
   const [user, setUser] = useState({
     name: "",
     phone: "",
@@ -20,14 +19,19 @@ function Splash() {
     location: "",
     city: "",
   });
-  const location = useLocation();
   const navigate = useNavigate();
+
   useEffect(() => {
-    const timer = setTimeout(() => setStack(1), 500);
-    return () => {
-      clearTimeout(timer);
-    };
-  }, []);
+    if (location?.state?.fromFeedback) {
+      changeStack(5);
+      startCamera();
+      setIsSecond(true);
+    } else {
+      const timer = setTimeout(() => setStack(1), 500);
+      setIsSecond(false);
+      return () => clearTimeout(timer);
+    }
+  }, [location.state]);
 
   const changeStack = (number) => {
     setStack(number);
@@ -70,6 +74,16 @@ function Splash() {
     }
   };
 
+  const stopCamera = () => {
+    if (videoRef.current && videoRef.current.srcObject) {
+      const stream = videoRef.current.srcObject;
+      const tracks = stream.getTracks();
+      tracks.forEach((track) => track.stop());
+      videoRef.current.srcObject = null;
+      setStreaming(false);
+    }
+  };
+
   const captureImage = () => {
     const canvas = canvasRef.current;
     const video = videoRef.current;
@@ -81,21 +95,19 @@ function Splash() {
     context.drawImage(video, 0, 0, canvas.width, canvas.height);
     const imageDataUrl = canvas.toDataURL("image/jpeg");
     setImageDataUrl(imageDataUrl);
+
     return;
   };
 
-  // function removeBase64Prefix(base64String) {
-  //   return base64String.replace(/^data:image\/jpeg;base64,/, "");
-  // }
-
   const APICall = async () => {
+    setIsSecond(true);
     try {
       setLoading(true);
       const response = await axios.post(
         "https://sangya.thefirstimpression.ai/process",
         {
           image: imageDataUrl,
-          right_upload: false,
+          isSecond: isSecond,
         }
       );
 
