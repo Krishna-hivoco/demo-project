@@ -90,7 +90,7 @@ function Splash() {
     try {
       setLoading(true);
       const response = await axios.post(
-        "https://faber.interactivedemos.io/process",
+        "https://scope-hindi.interactivedemos.io/process",
         {
           image: imageDataUrl,
           right_upload: false,
