@@ -4,7 +4,7 @@ import { IoArrowBack } from "react-icons/io5";
 import Button from "../elements/Button";
 import { useLocation, useNavigate } from "react-router-dom";
 
-function Feedback() {
+function Feadback() {
   const location = useLocation();
   const response = location.state?.response;
   const actualimage = location.state?.actualimage;
@@ -80,4 +80,4 @@ function Feedback() {
   );
 }
 
-export default Feedback;
+export default Feadback;

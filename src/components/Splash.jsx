@@ -99,7 +99,7 @@ function Splash() {
 
       console.log("first", response);
       setLoading(false);
-      navigate("/feedback", {
+      navigate("/Feadback", {
         state: {
           response: response.data,
           actualimage: imageDataUrl,

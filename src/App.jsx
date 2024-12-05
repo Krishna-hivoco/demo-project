@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import Layout from "./components/Layout";
 import Splash from "./components/Splash";
-import Feedback from "./components/feedback";
+import Feadback from "./components/Feadback";
 import Congratulation from "./components/Congratulation";
 import Leaderboard from "./components/Leaderboard";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
@@ -21,7 +21,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Splash />} />
-        <Route path="/feedback" element={<Feedback />} />
+        <Route path="/Feadback" element={<Feadback />} />
         <Route path="/congratulation" element={<Congratulation />} />
         <Route path="/leaderboard" element={<Leaderboard />} />
       </Routes>
