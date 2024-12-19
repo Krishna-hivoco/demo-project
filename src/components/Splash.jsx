@@ -7,6 +7,8 @@ import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 function Splash() {
+  const [openPrompts, setOpenPrompts] = useState(false);
+  const [promptsStatus, setPromptsStatus] = useState("");
   const location = useLocation();
   const [isSecond, setIsSecond] = useState(false);
   const [stack, setStack] = useState(1);
@@ -57,6 +59,45 @@ function Splash() {
   const [loading, setLoading] = useState(false);
   const [imageDataUrl, setImageDataUrl] = useState(null);
 
+  const [text, setText] = useState("");
+
+  const handleChange = (event) => {
+    setText(event.target.value);
+  };
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const response = await axios.get(
+          "https://sangya.thefirstimpression.ai/get_prompt"
+        ); // Replace with your API endpoint
+        setText(response.data.prompt); // Assuming the API returns { text: "default value" }
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    }
+
+    fetchData();
+  }, [loading]);
+
+  const saveToDatabase = async () => {
+    setLoading(true);
+    setPromptsStatus("Loading...");
+    try {
+      await axios.post("https://sangya.thefirstimpression.ai/update_prompt", {
+        prompt: text,
+      }); // Replace with your save API endpoint
+      setOpenPrompts(false);
+      setPromptsStatus("Current Prompts Saved");
+    } catch (error) {
+      console.error("Error saving data:", error);
+      setPromptsStatus("Failed to Save Prompts");
+      setOpenPrompts(true);
+    } finally {
+      setLoading(false);
+      setPromptsStatus("");
+    }
+  };
   // Open the camera and stream to the video element
   const startCamera = async () => {
     try {
@@ -190,6 +231,36 @@ function Splash() {
                 alt="logo"
                 srcSet=""
               />
+              <span
+                onClick={() => setOpenPrompts(true)}
+                className="underline text-sm text-red-500 mx-auto cursor-pointer"
+              >
+                Change Prompt
+              </span>
+              {openPrompts && (
+                <div
+                  className="fixed inset-0 bg-black bg-opacity-95 flex justify-center items-center z-50"
+                  // onClick={togglePopup} // Close popup when clicking outside
+                >
+                  <div className=" flex flex-col justify-center items-center gap-10 ">
+                    <textarea
+                      value={text}
+                      onChange={handleChange}
+                      placeholder="Type something here..."
+                      rows="20"
+                      cols="40"
+                      className="scrollbar-hide text-lg outline-none rounded-lg p-5"
+                    />
+                    <Button
+                      onClick={() => saveToDatabase()}
+                      className={`w-40`}
+                      title="Save"
+                    />
+                    <span className="text-red-500">{promptsStatus}</span>
+                  </div>
+                </div>
+              )}
+
               {stack === 1 && (
                 <>
                   {" "}
