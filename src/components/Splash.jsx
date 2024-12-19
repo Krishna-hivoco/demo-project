@@ -242,14 +242,14 @@ function Splash() {
                   className="fixed inset-0 bg-black bg-opacity-95 flex justify-center items-center z-50"
                   // onClick={togglePopup} // Close popup when clicking outside
                 >
-                  <div className=" flex flex-col justify-center items-center gap-10 ">
+                  <div className=" flex flex-col justify-center items-center gap-10 w-full p-2 ">
                     <textarea
                       value={text}
                       onChange={handleChange}
                       placeholder="Type something here..."
                       rows="20"
-                      cols="40"
-                      className="scrollbar-hide text-lg outline-none rounded-lg p-5"
+                      // cols="25"
+                      className="scrollbar-hide text-lg outline-none rounded-lg w-full p-5 "
                     />
                     <Button
                       onClick={() => saveToDatabase()}
