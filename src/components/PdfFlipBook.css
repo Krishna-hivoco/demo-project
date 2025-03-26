@@ -1,0 +1,52 @@
+/* PDF Flipbook Custom CSS */
+.pdf-flipbook-container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.pdf-viewer {
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f4f4f4;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.page-render {
+    max-width: 100%;
+    height: auto;
+    object-fit: contain;
+    transition: transform 0.3s ease;
+}
+
+.navigation-controls button {
+    transition: all 0.3s ease;
+}
+
+.navigation-controls button:hover:not(:disabled) {
+    background-color: #e0e0e0;
+    transform: scale(1.1);
+}
+
+.page-indicator {
+    font-weight: 500;
+    letter-spacing: 0.5px;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .pdf-flipbook-container {
+        padding: 0.5rem;
+    }
+
+    .navigation-controls {
+        position: relative;
+        transform: none;
+        justify-content: space-between;
+        margin-top: 1rem;
+    }
+}

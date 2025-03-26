@@ -1,0 +1,498 @@
+.audio-button {
+    position: relative;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: #f97316;
+}
+
+@media (max-width: 480px) {
+    .audio-button {
+        width: 25px;
+        height: 25px;
+        border-radius: 50%;
+        font-size: 14px;
+        background: transparent;
+box-shadow: none
+    }
+        .audio-button:hover {
+            transform: scale(1.1);
+            /* box-shadow: 0 6px 8px rgba(0, 0, 0) */
+        }
+}
+
+.audio-button:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 8px rgba(0, 0, 0)
+}
+
+
+/* Tailwind CSS for modal styling */
+.modal-overlay {
+    position: fixed;
+    /* Keeps the modal overlay in place */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    /* Dark overlay */
+    z-index: 50;
+    /* Ensure it sits on top of other elements */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.modal-container {
+    background-color: #fff;
+    /* White background for the modal */
+    border-radius: 8px;
+    /* Rounded corners for the modal */
+    width: 100%;
+    max-width: 500px;
+    /* Modal width */
+    padding: 2rem;
+    /* Padding inside modal */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    /* Soft shadow */
+    transform: scale(0.9);
+    /* Initial scale for animation */
+    opacity: 0;
+    animation: modalFadeIn 0.3s forwards;
+    /* Fade in animation */
+}
+
+.modal-header {
+    padding: 1rem 0;
+    border-bottom: 2px solid #f3f4f6;
+    /* Bottom border */
+}
+
+.modal-body {
+    padding: 1rem 0;
+}
+
+@keyframes modalFadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.modal-overlay.show {
+    opacity: 1;
+}
+
+.modal-overlay.hide {
+    opacity: 0;
+}
+
+
+/* Tailwind CSS for modal styling */
+.modal-overlay {
+    position: fixed;
+    /* Keeps the modal overlay in place */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    /* Dark overlay */
+    z-index: 50;
+    /* Ensure it sits on top of other elements */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.modal-container {
+    background-color: #fff;
+    /* White background for the modal */
+    border-radius: 8px;
+    /* Rounded corners for the modal */
+    width: 100%;
+    max-width: 500px;
+    /* Modal width */
+    padding: 2rem;
+    /* Padding inside modal */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    /* Soft shadow */
+    transform: scale(0.9);
+    /* Initial scale for animation */
+    opacity: 0;
+    animation: modalFadeIn 0.3s forwards;
+    /* Fade in animation */
+}
+
+.modal-header {
+    padding: 1rem 0;
+    border-bottom: 2px solid #f3f4f6;
+    /* Bottom border */
+}
+
+.modal-body {
+    padding: 1rem 0;
+}
+
+@keyframes modalFadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.modal-overlay.show {
+    opacity: 1;
+}
+
+.modal-overlay.hide {
+    opacity: 0;
+}
+
+/* Additional styles for the language options */
+.language-option {
+    padding: 0.75rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.language-option:hover {
+    background-color: #f3f4f6;
+}
+
+.language-option.selected {
+    background-color: #e0e7ff;
+    /* Highlight the selected option */
+    border-color: #3b82f6;
+    /* Add border color to selected option */
+}
+
+.check-mark {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 0.25rem;
+    background-color: #3b82f6;
+    /* Blue background for the check mark */
+    border-radius: 50%;
+}
+
+
+
+
+
+/* Styling for the video modal as a small window on the page */
+.video-modal-container {
+    position: fixed;
+    bottom: 20px;
+    /* Position it near the bottom */
+    right: 20px;
+    /* Position it on the right side */
+    width: 300px;
+    /* Set fixed width */
+    height: 600px;
+    /* Set fixed height */
+    background-color: #fff;
+    /* White background */
+    border-radius: 8px;
+    /* Rounded corners */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    /* Soft shadow */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch;
+    z-index: 999;
+    /* Ensure it's on top of other elements */
+    overflow: hidden;
+    /* Hide overflow to make sure the video stays contained */
+}
+.video-modal-container2 {
+    /* position: fixed; */
+    /* bottom: 20px; */
+    /* Position it near the bottom */
+    /* right: 20px; */
+    /* Position it on the right side */
+    width: 350px;
+    /* Set fixed width */
+    height: 600px;
+    /* Set fixed height */
+    /* background-color: #fff; */
+    /* White background */
+    border-radius: 8px;
+    /* Rounded corners */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    /* Soft shadow */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch;
+    overflow: hidden;
+}
+.audio-modal-container {
+    position: fixed;
+    bottom: 20px;
+    /* Position it near the bottom */
+    right: 20px;
+    /* Position it on the right side */
+    width: 100px;
+    /* Set fixed width */
+    height: 100px;
+    /* Set fixed height */
+    /* background-color: #fff; */
+    /* White background */
+    border-radius: 8px;
+    /* Rounded corners */
+    /* box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); */
+    /* Soft shadow */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch;
+    z-index: 999;
+    /* Ensure it's on top of other elements */
+    overflow: hidden;
+    /* Hide overflow to make sure the video stays contained */
+}
+
+/* Close button styling */
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: white;
+    border-radius: 100%;
+    width:25px;
+    height: 25px;
+    border: none;
+    font-size: 24px;
+    color: #333;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.close-btn:hover {
+    color: #f44336;
+    /* Red color when hovering over the close button */
+}
+
+/* Video player styling to take full width and height of the modal */
+.video-player {
+    width: 100%;
+    height: 100%;
+}
+
+
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-fadeIn {
+    animation: fadeIn 0.4s ease-out forwards;
+}
+
+/* Video Modal Container - Enhanced version */
+.video-modal-container2 {
+    width: 100%;
+    max-width: 720px;
+    height: auto;
+    aspect-ratio: 16/9;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch;
+    overflow: hidden;
+    margin: 0 auto;
+    background: #000;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .video-modal-container2 {
+        width: 100%;
+        border-radius: 8px;
+    }
+}
+
+/* Subtitle styling */
+.subtitle-container {
+    position: absolute;
+    bottom: 60px;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    z-index: 10;
+    padding: 0 16px;
+}
+
+.subtitle-text {
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 18px;
+    max-width: 90%;
+    text-align: center;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* ICICI brand colors */
+.icici-orange {
+    color: #F7941D;
+}
+
+.icici-red {
+    color: #ED1C24;
+}
+
+.bg-icici-gradient {
+    background: linear-gradient(to right, #F7941D, #ED1C24);
+}
+
+/* Custom video controls */
+.video-controls {
+    display: flex;
+    align-items: center;
+    padding: 12px;
+    background: #f8f8f8;
+    border-top: 1px solid #e5e5e5;
+}
+
+.control-button {
+    background: #F7941D;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 8px 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    margin-right: 8px;
+}
+
+.control-button:hover {
+    background: #ED1C24;
+}
+
+.control-button.secondary {
+    background: #e2e2e2;
+    color: #333;
+}
+
+.control-button.secondary:hover {
+    background: #d1d1d1;
+}
+
+/* Welcome modal styling */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+    padding: 16px;
+}
+
+.modal-container {
+    background-color: white;
+    border-radius: 12px;
+    overflow: hidden;
+    width: 100%;
+    max-width: 480px;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    animation: fadeIn 0.4s ease-out forwards;
+}
+
+.modal-header {
+    padding: 16px 24px;
+    background: linear-gradient(to right, #F7941D, #ED1C24);
+}
+
+.modal-body {
+    padding: 24px;
+}
+
+/* Form styling */
+input[type="text"],
+input[type="date"],
+select {
+    transition: all 0.2s ease;
+    border: 1px solid #e2e2e2;
+}
+
+input[type="text"]:focus,
+input[type="date"]:focus,
+select:focus {
+    border-color: #F7941D;
+    box-shadow: 0 0 0 3px rgba(247, 148, 29, 0.2);
+}
+
+button[type="submit"] {
+    transition: all 0.3s ease;
+}
+
+button[type="submit"]:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(247, 148, 29, 0.3);
+}
+
+/* Loading animation */
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.loading-spinner {
+    width: 64px;
+    height: 64px;
+    border: 6px solid #f3f3f3;
+    border-top: 6px solid #F7941D;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}

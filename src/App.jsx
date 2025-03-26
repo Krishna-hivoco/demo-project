@@ -7,6 +7,14 @@ import Leaderboard from "./components/Leaderboard";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import InsuranceAgePage from "./components/InsuranceAgePage";
+import ICICIVideo from "./components/ICICIVideo";
+
+import InfiniteCarousel from "./components/InfiniteCarousel";
+import CardSwiper from "./components/CardSwiper";
+// import PdfFlip from "./components/PdfFlip";
+import FlipBook from "./components/PdfFlip";
+// import ImageSlider from "./components/ImageSlider";
 
 function App() {
   useEffect(() => {
@@ -20,10 +28,14 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Splash />} />
+        {/* <Route path="/" element={<Splash />} />
         <Route path="/Feadback" element={<Feadback />} />
         <Route path="/congratulation" element={<Congratulation />} />
-        <Route path="/leaderboard" element={<Leaderboard />} />
+        <Route path="/leaderboard" element={<Leaderboard />} /> */}
+        {/* <Route path="/" element={<InsuranceAgePage />} /> */}
+        {/* <Route path="/" element={<ICICIVideo />} /> */}
+        <Route path="/" element={<CardSwiper />} />
+        {/* <Route path="/" element={< />} /> */}
       </Routes>
     </BrowserRouter>
 
