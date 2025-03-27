@@ -198,7 +198,7 @@ function CardSwiper() {
   };
 
   return (
-    <>
+    <div className="h-svh ">
       {showWelcomeModal && (
         <div className="modal-overlay">
           <div className="modal-container text-start">
@@ -272,23 +272,6 @@ function CardSwiper() {
           }}
         />
       )}
-      <div className="header-container">
-        {/* <div className="flex justify-between items-center bg-gradient-to-r from-orange-500 to-red-500 text-white p-4 rounded-lg shadow-lg">
-          <div className="text-2xl font-bold">ICICI Insurance Brochure</div>
-          <div className="flex gap-4 items-center">
-            <button className="text-white hover:text-orange-100 transition-colors hidden md:block">
-              Support
-            </button>
-            <button className="text-white hover:text-orange-100 transition-colors hidden md:block">
-              Login
-            </button>
-            <button className="bg-white text-orange-500 px-4 py-2 rounded hover:bg-orange-100 transition-colors font-semibold">
-              Buy Now
-            </button>
-          </div>
-        </div> */}
-        <img className="h-10 object-contain" src="/icici.png" alt="" />
-      </div>
 
       {/* <Swiper
         ref={swiperRef}
@@ -351,7 +334,7 @@ function CardSwiper() {
       </button> */}
       <PdfFlip setIsOpen={setIsOpen} />
       {!isOpen && <ChatBot person_name={userDetails.name.trim()} />}
-    </>
+    </div>
   );
 }
 

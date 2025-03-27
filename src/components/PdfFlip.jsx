@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import {
   Fullscreen,
   Plus,
@@ -12,11 +12,24 @@ import HTMLFlipBook from "react-pageflip";
 
 export default function PdfFlip({ setIsOpen }) {
   const bookRef = useRef(null);
-  const containerRef = useRef(null);
-  const [scale, setScale] = useState(1);
   const [currentPage, setCurrentPage] = useState(0);
   const [isFullScreen, setIsFullScreen] = useState(false);
   const [activeHotspot, setActiveHotspot] = useState(null);
+  const [zoom, setZoom] = useState(1);
+  const [position, setPosition] = useState({ x: 0, y: 0 });
+  const [isDragging, setIsDragging] = useState(false);
+  const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
+
+  // Ref for the image container and image
+  const containerRef = useRef(null);
+  const imageRef = useRef(null);
+
+  // Prevent default touch behavior
+  const preventTouch = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    return false;
+  };
 
   // Fullscreen functionality
   const toggleFullScreen = () => {
@@ -33,20 +46,30 @@ export default function PdfFlip({ setIsOpen }) {
     }
   };
 
-  // Zoom functionality
-  const zoomIn = () => {
-    setScale((prevScale) => {
-      const newScale = Math.min(prevScale + 0.2, 3);
-      return Number(newScale.toFixed(2));
+  // Add event listeners to prevent zoom
+  useEffect(() => {
+    // Prevent pinch zoom globally
+    document.body.addEventListener("touchmove", preventTouch, {
+      passive: false,
     });
-  };
+    document.body.addEventListener("gesturestart", preventTouch, {
+      passive: false,
+    });
+    document.body.addEventListener("gesturechange", preventTouch, {
+      passive: false,
+    });
+    document.body.addEventListener("gestureend", preventTouch, {
+      passive: false,
+    });
 
-  const zoomOut = () => {
-    setScale((prevScale) => {
-      const newScale = Math.max(prevScale - 0.2, 1);
-      return Number(newScale.toFixed(2));
-    });
-  };
+    return () => {
+      // Cleanup event listeners
+      document.body.removeEventListener("touchmove", preventTouch);
+      document.body.removeEventListener("gesturestart", preventTouch);
+      document.body.removeEventListener("gesturechange", preventTouch);
+      document.body.removeEventListener("gestureend", preventTouch);
+    };
+  }, []);
 
   const goToPrevPage = () => {
     if (bookRef.current) {
@@ -60,18 +83,79 @@ export default function PdfFlip({ setIsOpen }) {
     }
   };
 
+  const handleWheel = (e) => {
+    e.preventDefault();
+    const delta = e.deltaY > 0 ? -0.1 : 0.1;
+    const newZoom = Math.max(1, Math.min(zoom + delta, 3));
+    setZoom(newZoom);
+  };
+
+  // Mouse Drag Handlers
+  const handleMouseDown = (e) => {
+    console.log("handleMouseDown");
+    if (zoom > 1) {
+      setIsDragging(true);
+      setDragStart({
+        x: e.clientX - position.x,
+        y: e.clientY - position.y,
+      });
+    }
+  };
+
+  const handleMouseMove = (e) => {
+    console.log("handleMouseMove");
+    if (isDragging && containerRef.current && imageRef.current) {
+      const containerRect = containerRef.current.getBoundingClientRect();
+      const imageRect = imageRef.current.getBoundingClientRect();
+
+      // Calculate new position
+      const newX = e.clientX - dragStart.x;
+      const newY = e.clientY - dragStart.y;
+
+      // Calculate max movement boundaries
+      const maxX = Math.max(
+        0,
+        (imageRect.width * zoom - containerRect.width) / 2
+      );
+      const maxY = Math.max(
+        0,
+        (imageRect.height * zoom - containerRect.height) / 2
+      );
+
+      // Set new position with boundary checks
+      setPosition({
+        x: Math.max(-maxX, Math.min(maxX, newX)),
+        y: Math.max(-maxY, Math.min(maxY, newY)),
+      });
+    }
+  };
+
+  const handleMouseUp = () => {
+    console.log("handleMouseUp");
+    setIsDragging(false);
+
+    // Reset position to center when cursor is released
+    if (zoom > 1) {
+      setPosition({ x: 0, y: 0 });
+    }
+  };
+
+  const handleMouseLeave = () => {
+    console.log("handleMouseLeave");
+    if (isDragging) {
+      setIsDragging(false);
+
+      // Reset position to center when cursor leaves
+      if (zoom > 1) {
+        setPosition({ x: 0, y: 0 });
+      }
+    }
+  };
+
   const iciciImages = [
     {
       image: "/pdf/1.jpg",
-      positions: [
-        // {
-        //   x: 30,
-        //   y: 50,
-        //   label: "Loan Details",
-        //   description: "View loan information",
-        // },
-        // { x: 70, y: 30, label: "Contact", description: "Contact our support" },
-      ],
+      positions: [],
     },
     {
       image: "/pdf/2.jpg",
@@ -92,7 +176,7 @@ export default function PdfFlip({ setIsOpen }) {
           x: 40,
           y: 300,
           label: "Policy",
-          description: "The Benifiets of the policy",
+          description: "The Benefits of the policy",
         },
         {
           x: 75,
@@ -167,25 +251,11 @@ export default function PdfFlip({ setIsOpen }) {
     },
     {
       image: "/pdf/8.jpg",
-      positions: [
-        // {
-        //   x: 30,
-        //   y: 50,
-        //   label: "Customer Support",
-        //   description: "Get help and support",
-        // },
-        // {
-        //   x: 60,
-        //   y: 80,
-        //   label: "Branch Locator",
-        //   description: "Find nearest branch",
-        // },
-      ],
+      positions: [],
     },
   ];
 
   const handleHotspotClick = (hotspot) => {
-    // console.log("object", hotspot);
     setActiveHotspot(hotspot);
     setIsOpen(true);
   };
@@ -193,27 +263,55 @@ export default function PdfFlip({ setIsOpen }) {
   return (
     <div
       ref={containerRef}
-      className="relative flex items-center justify-center w-full h-svh flex-col"
+      className=" flex items-center justify-center w-full h-full flex-col"
+      // onTouchStart={preventTouch}
+      // onTouchMove={preventTouch}
+      // onTouchEnd={preventTouch}
     >
       {/* Document Container with Subtle Shadow and Border */}
-      <div className="relative w-full  h-[85%] bg-[#008B8B]   overflow-auto scrollbar-hide ">
+      <div
+        // onWheel={handleWheel}
+        className="relative w-full h-[85%] bg-[#008B8B] overflow-hidden scrollbar-hide"
+        style={{
+          touchAction: "none", // Prevent default touch interactions
+          userSelect: "none", // Prevent text selection
+          WebkitUserSelect: "none",
+          msUserSelect: "none",
+        }}
+      >
         {/* Flip Book Container */}
-        <div className="absolute inset-0 flex items-center justify-center p-8">
+        <div
+          style={{
+            transform: `scale(${zoom}) translate(${position.x}px, ${position.y}px)`,
+            cursor: zoom > 1 ? (isDraggisng ? "grabbing" : "grab") : "zoom-in",
+            userSelect: "none",
+            WebkitUserSelect: "none",
+            msUserSelect: "none",
+          }}
+          onMouseDown={handleMouseDown}
+          onMouseMove={handleMouseMove}
+          onMouseUp={handleMouseUp}
+          onMouseLeave={handleMouseLeave}
+          onTouchStart={preventTouch}
+          onTouchMove={preventTouch}
+          onTouchEnd={preventTouch}
+          draggable="false"
+          ref={imageRef}
+          className="absolute top-0 left-0 w-full h-full object-cover transition-transform duration-300 ease-out select-none inset-0 flex items-center justify-center p-8"
+        >
           <HTMLFlipBook
             width={400}
             height={600}
-            // showCover={true}
             mobileScrollSupport={true}
             ref={bookRef}
             useMouseEvents={false}
             flippingTime={500}
             onFlip={(e) => setCurrentPage(e.data)}
-            style={{ transform: `scale(${scale})` }}
           >
             {iciciImages.map((page, index) => (
               <div
                 key={index}
-                className="page relative flex items-center justify-center "
+                className="page relative flex items-center justify-center"
               >
                 <img
                   src={page.image}
@@ -253,10 +351,10 @@ export default function PdfFlip({ setIsOpen }) {
             ))}
           </HTMLFlipBook>
         </div>
-
-        {/* Control Bar with Refined Design */}
       </div>
-      <div className=" bottom-0 left-0 right-0 bg-[#333333] w-full  p-4 ">
+
+      {/* Control Bar */}
+      <div className="bottom-0 left-0 right-0 bg-[#333333] w-full p-4">
         <div className="flex justify-center items-center space-x-6">
           {/* Previous Page Button */}
           <button
@@ -276,12 +374,12 @@ export default function PdfFlip({ setIsOpen }) {
 
           {/* Zoom Out Button */}
           <button
-            onClick={zoomOut}
-            disabled={scale <= 1}
+            onClick={() => setZoom(Math.max(1, zoom - 0.5))}
+            disabled={zoom <= 1}
             className={`
                 transition-all duration-300 rounded-full p-2
                 ${
-                  scale <= 1
+                  zoom <= 1
                     ? "text-gray-500 cursor-not-allowed"
                     : "text-white hover:bg-blue-500/30 hover:text-blue-300"
                 }
@@ -297,12 +395,12 @@ export default function PdfFlip({ setIsOpen }) {
 
           {/* Zoom In Button */}
           <button
-            onClick={zoomIn}
-            disabled={scale >= 3}
+            onClick={() => setZoom(Math.min(3, zoom + 0.5))}
+            disabled={zoom >= 3}
             className={`
                 transition-all duration-300 rounded-full p-2
                 ${
-                  scale >= 3
+                  zoom >= 3
                     ? "text-gray-500 cursor-not-allowed"
                     : "text-white hover:bg-blue-500/30 hover:text-blue-300"
                 }
