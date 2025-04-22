@@ -14,6 +14,11 @@ import InfiniteCarousel from "./components/InfiniteCarousel";
 import CardSwiper from "./components/CardSwiper";
 // import PdfFlip from "./components/PdfFlip";
 import FlipBook from "./components/PdfFlip";
+import VideoAds from "./components/VideoAds";
+import CustomVideoPlayer from "./components/VideoDuration";
+import PandaLipSync from "./components/Panda";
+import AudioProcessing from "./components/AudioProcessing";
+import AudioToBase64 from "./components/AudioToBase64";
 // import ImageSlider from "./components/ImageSlider";
 
 function App() {
@@ -34,7 +39,7 @@ function App() {
         <Route path="/leaderboard" element={<Leaderboard />} /> */}
         {/* <Route path="/" element={<InsuranceAgePage />} /> */}
         {/* <Route path="/" element={<ICICIVideo />} /> */}
-        <Route path="/" element={<CardSwiper />} />
+        <Route path="/" element={<AudioToBase64 />} />
         {/* <Route path="/" element={< />} /> */}
       </Routes>
     </BrowserRouter>

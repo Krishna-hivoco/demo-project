@@ -17,6 +17,9 @@ export default {
         transform: "transform",
         opacity: "opacity",
       },
+      animation: {
+        "question-enter": "slideIn 0.6s ease-out forwards",
+      },
 
       backgroundImage: {
         bg: "url('/bg.png')",

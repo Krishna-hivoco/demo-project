@@ -198,7 +198,7 @@ function CardSwiper() {
   };
 
   return (
-    <div className="h-svh ">
+    <div className=" h-svh">
       {showWelcomeModal && (
         <div className="modal-overlay">
           <div className="modal-container text-start">
@@ -272,6 +272,7 @@ function CardSwiper() {
           }}
         />
       )}
+      <img className="h-12 object-contain" src="/icici.png" alt="" srcset="" />
 
       {/* <Swiper
         ref={swiperRef}

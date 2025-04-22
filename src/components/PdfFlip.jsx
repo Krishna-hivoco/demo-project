@@ -26,18 +26,17 @@ export default function PdfFlip({ setIsOpen }) {
 
   // Prevent default touch behavior
   const preventTouch = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    return false;
+    // e.preventDefault();
+    // e.stopPropagation();
+    // return false;
   };
 
   // Fullscreen functionality
   const toggleFullScreen = () => {
     if (containerRef.current) {
       if (!document.fullscreenElement) {
-        containerRef.current
-          .requestFullscreen()
-          .catch((err) => console.log(err));
+        containerRef.current.requestFullscreen();
+        // .catch((err) => console.log(err));
         setIsFullScreen(true);
       } else {
         document.exitFullscreen();
@@ -92,7 +91,7 @@ export default function PdfFlip({ setIsOpen }) {
 
   // Mouse Drag Handlers
   const handleMouseDown = (e) => {
-    console.log("handleMouseDown");
+    // console.log("handleMouseDown");
     if (zoom > 1) {
       setIsDragging(true);
       setDragStart({
@@ -103,7 +102,7 @@ export default function PdfFlip({ setIsOpen }) {
   };
 
   const handleMouseMove = (e) => {
-    console.log("handleMouseMove");
+    // console.log("handleMouseMove");
     if (isDragging && containerRef.current && imageRef.current) {
       const containerRect = containerRef.current.getBoundingClientRect();
       const imageRect = imageRef.current.getBoundingClientRect();
@@ -131,7 +130,7 @@ export default function PdfFlip({ setIsOpen }) {
   };
 
   const handleMouseUp = () => {
-    console.log("handleMouseUp");
+    // console.log("handleMouseUp");
     setIsDragging(false);
 
     // Reset position to center when cursor is released
@@ -141,7 +140,7 @@ export default function PdfFlip({ setIsOpen }) {
   };
 
   const handleMouseLeave = () => {
-    console.log("handleMouseLeave");
+    // console.log("handleMouseLeave");
     if (isDragging) {
       setIsDragging(false);
 
@@ -256,6 +255,7 @@ export default function PdfFlip({ setIsOpen }) {
   ];
 
   const handleHotspotClick = (hotspot) => {
+    console.log("object");
     setActiveHotspot(hotspot);
     setIsOpen(true);
   };
@@ -263,7 +263,7 @@ export default function PdfFlip({ setIsOpen }) {
   return (
     <div
       ref={containerRef}
-      className=" flex items-center justify-center w-full h-full flex-col"
+      className=" flex items-center justify-center w-full h-full  flex-col py-5"
       // onTouchStart={preventTouch}
       // onTouchMove={preventTouch}
       // onTouchEnd={preventTouch}
@@ -271,22 +271,22 @@ export default function PdfFlip({ setIsOpen }) {
       {/* Document Container with Subtle Shadow and Border */}
       <div
         // onWheel={handleWheel}
-        className="relative w-full h-[85%] bg-[#008B8B] overflow-hidden scrollbar-hide"
-        style={{
-          touchAction: "none", // Prevent default touch interactions
-          userSelect: "none", // Prevent text selection
-          WebkitUserSelect: "none",
-          msUserSelect: "none",
-        }}
+        className="relative w-full h-full s overflow-hidden scrollbar-hide"
+        // style={{
+        //   touchAction: "none", // Prevent default touch interactions
+        //   userSelect: "none", // Prevent text selection
+        //   WebkitUserSelect: "none",
+        //   msUserSelect: "none",
+        // }}
       >
         {/* Flip Book Container */}
         <div
           style={{
             transform: `scale(${zoom}) translate(${position.x}px, ${position.y}px)`,
-            cursor: zoom > 1 ? (isDraggisng ? "grabbing" : "grab") : "zoom-in",
-            userSelect: "none",
-            WebkitUserSelect: "none",
-            msUserSelect: "none",
+            cursor: zoom > 1 ? (isDragging ? "grabbing" : "grab") : "zoom-in",
+            // userSelect: "none",
+            // WebkitUserSelect: "none",
+            // msUserSelect: "none",
           }}
           onMouseDown={handleMouseDown}
           onMouseMove={handleMouseMove}
@@ -354,7 +354,7 @@ export default function PdfFlip({ setIsOpen }) {
       </div>
 
       {/* Control Bar */}
-      <div className="bottom-0 left-0 right-0 bg-[#333333] w-full p-4">
+      <div className="bottom-0 left-0 right-0 bg-white text-black max-w-3/5 p-4">
         <div className="flex justify-center items-center space-x-6">
           {/* Previous Page Button */}
           <button
@@ -365,7 +365,7 @@ export default function PdfFlip({ setIsOpen }) {
                 ${
                   currentPage === 0
                     ? "text-gray-500 cursor-not-allowed"
-                    : "text-white hover:bg-blue-500/30 hover:text-blue-300"
+                    : "text-black hover:bg-blue-500/30 hover:text-blue-300"
                 }
               `}
           >
@@ -381,7 +381,7 @@ export default function PdfFlip({ setIsOpen }) {
                 ${
                   zoom <= 1
                     ? "text-gray-500 cursor-not-allowed"
-                    : "text-white hover:bg-blue-500/30 hover:text-blue-300"
+                    : "text-black hover:bg-blue-500/30 hover:text-blue-300"
                 }
               `}
           >
@@ -389,7 +389,7 @@ export default function PdfFlip({ setIsOpen }) {
           </button>
 
           {/* Page Indicator */}
-          <div className="text-white text-lg font-semibold tracking-wider md:block hidden">
+          <div className="text-black text-lg font-semibold tracking-wider md:block hidden">
             Page {currentPage + 1} / {iciciImages.length}
           </div>
 
@@ -402,7 +402,7 @@ export default function PdfFlip({ setIsOpen }) {
                 ${
                   zoom >= 3
                     ? "text-gray-500 cursor-not-allowed"
-                    : "text-white hover:bg-blue-500/30 hover:text-blue-300"
+                    : "text-black hover:bg-blue-500/30 hover:text-blue-300"
                 }
               `}
           >
@@ -418,7 +418,7 @@ export default function PdfFlip({ setIsOpen }) {
                 ${
                   currentPage === iciciImages.length - 1
                     ? "text-gray-500 cursor-not-allowed"
-                    : "text-white hover:bg-blue-500/30 hover:text-blue-300"
+                    : "text-black hover:bg-blue-500/30 hover:text-blue-300"
                 }
               `}
           >
@@ -433,7 +433,7 @@ export default function PdfFlip({ setIsOpen }) {
                 ${
                   isFullScreen
                     ? "bg-blue-600 text-white"
-                    : "text-white hover:bg-blue-500/30 hover:text-blue-300"
+                    : "text-black hover:bg-blue-500/30 hover:text-blue-300"
                 }
               `}
           >

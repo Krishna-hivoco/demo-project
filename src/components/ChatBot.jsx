@@ -117,15 +117,15 @@ const ChatBot = ({ person_name }) => {
         className={`flex items-center justify-center p-4 rounded-full shadow-lg transition-all duration-300
                   ${
                     isOpen
-                      ? "bg-red-500 rotate-90 hover:bg-red-600"
-                      : "bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600"
+                      ? "bg-white rotate-90 hover:bg-red-600"
+                      : "bg-white hover:bg-orange-600 "
                   }`}
         aria-label={isOpen ? "Close chat" : "Open chat"}
       >
         {isOpen ? (
-          <X size={24} className="text-white" />
+          <X size={24} className="text-red-600 hover:text-white" />
         ) : (
-          <MessageSquare size={24} className="text-white" />
+          <MessageSquare size={24} className="text-red-600 hover:text-white" />
         )}
       </button>
 
