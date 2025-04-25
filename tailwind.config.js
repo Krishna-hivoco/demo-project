@@ -23,6 +23,7 @@ export default {
 
       backgroundImage: {
         bg: "url('/bg.png')",
+        brew_bg: "url('/brew/bg.png')",
       },
       colors: {
         background: "var(--background)",

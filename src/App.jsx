@@ -19,6 +19,7 @@ import CustomVideoPlayer from "./components/VideoDuration";
 import PandaLipSync from "./components/Panda";
 import AudioProcessing from "./components/AudioProcessing";
 import AudioToBase64 from "./components/AudioToBase64";
+import Brew from "./components/Brew";
 // import ImageSlider from "./components/ImageSlider";
 
 function App() {
@@ -39,7 +40,7 @@ function App() {
         <Route path="/leaderboard" element={<Leaderboard />} /> */}
         {/* <Route path="/" element={<InsuranceAgePage />} /> */}
         {/* <Route path="/" element={<ICICIVideo />} /> */}
-        <Route path="/" element={<AudioToBase64 />} />
+        <Route path="/" element={<Brew />} />
         {/* <Route path="/" element={< />} /> */}
       </Routes>
     </BrowserRouter>
